@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="./styles/style.css">
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin-bottom: 5px;
+      cursor: grab;
+    }
+
+    .task.dragging {
+      opacity: 0.5;
+    }
+
+    .drop-zone {
+      border: 2px dashed #ddd;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .task-input {
+      border: none;
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-section"></div>
+  <div class="main-section">
+    <div class="header-section">
+      <div class="header-todo">Todo</div>
+      <div class="appearance-icon">
+        <img src="./images/icon-moon.svg" alt="">
+      </div>
+    </div>
+    
+    <!-- New task input -->
+    <div class="create-new-task">
+      <input type="text" id="new-task-input" placeholder="Create a new task">
+      <button id="add-task-btn">Add Task</button>
+    </div>
+
+    <!-- Task items section -->
+    <div class="items-section">
+      <div id="items" class="items">
+        <!-- Task items will be added here dynamically -->
+      </div>
+      <div class="bottom-section">
+        <div class="items-left">5 items left</div>
+        <div class="sort-items">
+          <div class="sort-option active">All</div>
+          <div class="sort-option">Active</div>
+          <div class="sort-option">Completed</div>
+        </div>
+        <div class="clear-completed">Clear Completed</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const taskInput = document.getElementById('new-task-input');
+  const addTaskBtn = document.getElementById('add-task-btn');
+  const itemsSection = document.getElementById('items');
+  let draggingTask = null;
+
+  // Add new task
+  addTaskBtn.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+    if (taskText) {
+      addTask(taskText);
+      taskInput.value = ''; // Clear input field after adding
+    }
+  });
+
+  // Add task to the DOM
+  function addTask(taskText) {
+    const task = document.createElement('div');
+    task.classList.add('task');
+    task.draggable = true;
+
+    task.innerHTML = `
+      <div class="edit-part">
+        <input type="checkbox">
+        <input class="task-input" type="text" value="${taskText}" readonly>
+      </div>
+      <div class="move-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-grip-horizontal" viewBox="0 0 16 16">
+          <path d="M2 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+        </svg>
+      </div>
+    `;
+
+    // Add drag and drop event listeners
+    
+
+    itemsSection.appendChild(task);
+  }
+});
+</script>
