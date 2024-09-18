@@ -1,0 +1,509 @@
+// Light Theme
+$very-light-gray: hsl(0, 0%, 98%);
+$very-light-grayish-blue: hsl(236, 33%, 92%);
+$light-grayish-blue: hsl(233, 11%, 84%);
+$dark-grayish-blue: hsl(236, 9%, 61%);
+$very-dark-grayish-blue: hsl(235, 19%, 35%);
+
+// Dark Theme
+$very-dark-blue: hsl(235, 21%, 11%);
+$very-dark-desaturated-blue: hsl(235, 24%, 19%);
+$light-grayish-blue-dark-theme: hsl(234, 39%, 85%);
+$light-grayish-blue-hover: hsl(236, 33%, 92%);
+$dark-grayish-blue-dark-theme: hsl(234, 11%, 52%);
+$very-dark-grayish-blue-dark-theme-1: hsl(233, 14%, 35%);
+$very-dark-grayish-blue-dark-theme-2: hsl(237, 14%, 26%);
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.bacground-section {
+    width: 100%;
+    height: 35vh;
+    // background-color: red;
+    background-image: url('../images/bg-desktop-light.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+.main-section {
+    // min-height: 500px;
+    max-width: 560px;
+    margin: 0px auto;
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10vh;
+        margin-bottom: 45px;
+
+        .header-todo {
+            font-size: 40px;
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+    }
+
+    .create-new-task {
+        height: 60px;
+        width: 100%;
+        background-color: white;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.47);
+        display: flex;
+        align-items: center;
+
+        .chekbox-t {
+            position: relative;
+            height: 28px;
+            width: 28px;
+            margin: 0 20px;
+            display: block;
+            cursor: pointer;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        .chekbox-t input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            // background-color: #eee;
+            border: 1px solid $light-grayish-blue;
+            border-radius: 15px;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .chekbox-t:hover input~.checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .chekbox-t input:checked~.checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .chekbox-t input:checked~.checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+
+
+        .task-input {
+            width: -webkit-fill-available;
+            height: 90%;
+            font-size: 18px;
+            border: 0;
+            outline: none;
+            background-color: #00000000;
+        }
+
+        .task-input-n {
+            width: -webkit-fill-available;
+            height: 90%;
+            font-size: 18px;
+            border: 0;
+            outline: none;
+            background-color: #00000000;
+        }
+
+    }
+
+    .items-section {
+        font-size: 18px;
+        font-weight: 400;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.47);
+        border-radius: 5px;
+        background-color: white;
+
+        .items {
+
+            /* Add task animation: slide down and fade in */
+            @keyframes slideIn {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-20px);
+
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Delete task animation: fade out and slide up */
+            @keyframes slideOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(0);
+                    //   transform: translateY(0);
+                }
+
+                100% {
+                    opacity: 0;
+                    transform: scale(1);
+
+                    //   transform: translateY(-20px);
+                }
+            }
+
+
+            .task {
+                height: 60px;
+                width: 100%;
+                background-color: white;
+                border-bottom: 1px solid $light-grayish-blue;
+                border-radius: 5px 5px 0 0;
+                display: flex;
+                align-items: center;
+
+
+                opacity: 0;
+                animation: slideIn 0.3s ease forwards;
+
+
+                .removing {
+                    animation: slideOut 0.3s ease forwards;
+                }
+
+                .edit-part {
+                    display: flex;
+                    align-items: center;
+                    width: -webkit-fill-available;
+
+
+
+                    .chekbox-t {
+                        position: relative;
+                        height: 28px;
+                        width: 28px;
+                        margin: 0 20px;
+                        display: block;
+                        cursor: pointer;
+                        font-size: 22px;
+                        user-select: none;
+                    }
+
+                    .chekbox-t input {
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                        height: 0;
+                        width: 0;
+                    }
+
+                    /* Create a custom checkbox */
+                    .checkmark {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 25px;
+                        width: 25px;
+                        // background-color: #eee;
+                        border: 1px solid $light-grayish-blue;
+
+                        border-radius: 15px;
+                    }
+
+                    /* On mouse-over, add a grey background color */
+                    .chekbox-t:hover input~.checkmark {
+                        background-color: #ccc;
+                    }
+
+                    /* When the checkbox is checked, add a blue background */
+                    .chekbox-t input:checked~.checkmark {
+                        // background-color: #2196F3;
+                        background: linear-gradient(90deg, rgb(147, 81, 237), rgb(112, 129, 244));
+                    }
+
+                    /* Create the checkmark/indicator (hidden when not checked) */
+                    .checkmark:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                    }
+
+                    /* Show the checkmark when checked */
+                    .chekbox-t input:checked~.checkmark:after {
+                        display: block;
+                    }
+
+                    /* Style the checkmark/indicator */
+                    .checkmark:after {
+                        left: 8px;
+                        top: 4px;
+                        width: 5px;
+                        height: 10px;
+                        border: solid white;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+
+
+
+
+                    input[type=text] {
+                        width: -webkit-fill-available;
+                        height: 90%;
+                        font-size: 18px;
+                        border: 0;
+                        outline: none;
+                        background-color: #00000000;
+                    }
+                }
+
+                .close-icon {
+                    svg {
+                        display: none;
+                        margin-right: 10px;
+                        color: $very-dark-blue;
+                    }
+                    cursor: pointer;
+                }
+
+                .move-icon {
+                    svg {
+                        display: none;
+                        margin-right: 20px;
+                        color: $very-dark-blue;
+                    }
+                }
+            }
+
+            .task:hover {
+                .move-icon {
+                    svg {
+                        display: block;
+                        cursor: grab;
+                    }
+                }
+
+                .close-icon {
+                    svg {
+                        display: block;
+                        cursor: active;
+                    }
+                }
+            }
+        }
+
+        .bottom-section {
+            font-size: 16px;
+            font-weight: 400;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: $very-dark-grayish-blue;
+            padding: 15px 15px;
+
+            .sort-items {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .active {
+                    color: royalblue;
+                }
+
+                .sort-option {
+                    text-align: center;
+                    // padding: 10px 0;
+                    margin-left: 10px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.sort-items-mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 450px) {
+
+    .bacground-section {
+        background-image: url('../images/bg-mobile-light.jpg');
+    }
+
+    .dark-mode {
+        .bacground-section {
+            background-image: url('../images/bg-mobile-dark.jpg');
+        }
+    }
+
+    .main-section {
+        margin: 0 25px;
+    }
+
+    .sort-items {
+        display: none !important;
+    }
+
+    .sort-items-mobile {
+        // display: flex;
+        // align-items: center;
+        // justify-content: space-between;
+
+        height: 60px;
+        width: 100%;
+        background-color: white;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.244);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 20px;
+
+        .active {
+            color: royalblue;
+        }
+
+        .sort-option {
+            text-align: center;
+            // padding: 10px 0;
+            margin: 0 10px;
+        }
+    }
+}
+
+.apirience-icon {
+    background: url(../images/icon-moon.svg);
+    display: block;
+    // text-indent: -9999px;
+    width: 25px;
+    height: 26px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+}
+
+// @media (prefers-color-scheme: dark) {
+.dark-mode {
+    color: $light-grayish-blue !important;
+
+    .move-icon {
+        display: none;
+    }
+
+    .close-icon {
+        svg {
+            color: $light-grayish-blue !important;
+        }
+
+    }
+
+    .task-input {
+        color: $light-grayish-blue !important;
+    }
+
+    .task-input-n {
+        color: $light-grayish-blue !important;
+
+    }
+
+    .checkmark {
+        border-color: $very-dark-grayish-blue !important;
+
+    }
+
+    .sort-items-mobile {
+        background-color: $very-dark-desaturated-blue !important;
+
+    }
+
+    .bottom-section {
+        color: $light-grayish-blue !important;
+    }
+
+    .bacground-section {
+        background-image: url('../images/bg-desktop-dark.jpg');
+
+    }
+
+    .apirience-icon {
+        background: url(../images/icon-sun.svg);
+
+    }
+
+    .create-new-task {
+        background-color: $very-dark-desaturated-blue !important;
+
+    }
+
+    background-color: $very-dark-blue;
+    color: #ffffff;
+
+    .items-section {
+        background-color: $very-dark-desaturated-blue !important;
+
+        .task {
+            background-color: $very-dark-desaturated-blue !important;
+            border-color: $very-dark-grayish-blue !important;
+
+        }
+
+    }
+
+    header,
+    footer {
+        background-color: #1e1e1e;
+    }
+
+    /* Additional dark mode specific styles */
+    a {
+        color: #bb86fc;
+    }
+}
+
+.clear-completed {
+    cursor: pointer;
+}
