@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', () => {
+
 document.addEventListener('focusin', (e) => {
   if (e.target.classList.contains('task-input')) {
     const taskDiv = e.target.closest('.task');
@@ -13,14 +15,13 @@ document.addEventListener('focusout', (e) => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
   const taskInput = document.getElementById('new-task-input');
   const addTaskBtn = document.getElementById('add-task-btn');
   const itemsSection = document.getElementById('items');
 
   letDragingTask = null;
 
-  loadTasksFromLocalStorage();
+  loadTasksFromLocalStorage(1);
 
 
 
@@ -166,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  function loadTasksFromLocalStorage() {
+  function loadTasksFromLocalStorage(page) {
+    console.log(page)
     const savedTasks = localStorage.getItem('tasks');
     
     if (savedTasks) {
@@ -177,6 +179,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadTasksCount();
 }
+
+  const allButton = document.getElementById('button-all');
+  const activeButton = document.getElementById('button-active');
+  const completedButton = document.getElementById('button-completed');
+
+  allButton.addEventListener('click', () => {
+    filterTasks('all');
+    setActiveButton(allButton);
+  });
+
+  activeButton.addEventListener('click', () => {
+    filterTasks('active');
+    setActiveButton(activeButton);
+  });
+
+  completedButton.addEventListener('click', () => {
+    filterTasks('completed');
+    setActiveButton(completedButton);
+  });
+
+  function setActiveButton(button) {
+    document.querySelectorAll('.sort-option').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    button.classList.add('active');
+  }
+
+  function filterTasks(filter) {
+    const tasks = document.querySelectorAll('.task');
+    
+    tasks.forEach(task => {
+      const isCompleted = task.querySelector('input[type="checkbox"]').checked;
+      
+      if (filter === 'all') {
+        task.style.display = 'flex';
+      } else if (filter === 'active') {
+        if (!isCompleted) {
+          task.style.display = 'flex';
+        } else {
+          task.style.display = 'none';
+        }
+      } else if (filter === 'completed') {
+        if (isCompleted) {
+          task.style.display = 'flex';
+        } else {
+          task.style.display = 'none'; 
+        }
+      }
+    });
+  }
+
 
 function loadTasksCount() {
   const savedTasks = localStorage.getItem('tasks');
@@ -189,6 +242,7 @@ function loadTasksCount() {
   } else {
       itemsLeft.innerHTML = '0 items left';
   }
+  
 }
 
 
