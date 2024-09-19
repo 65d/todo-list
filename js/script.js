@@ -35,7 +35,7 @@ document.addEventListener('focusout', (e) => {
       const taskText = taskInput.value.trim();
       if (taskText) {
         addTask(taskText);
-        taskInput.value = ''; // Clear input field after adding
+        taskInput.value = ''; 
         saveTasksToLocalStorage();
       }
     }
