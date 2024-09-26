@@ -35,7 +35,7 @@ document.addEventListener('focusout', (e) => {
       const taskText = taskInput.value.trim();
       if (taskText) {
         addTask(taskText);
-        taskInput.value = ''; 
+        taskInput.value = ''; // Clear input field after adding
         saveTasksToLocalStorage();
       }
     }
@@ -168,7 +168,7 @@ document.addEventListener('focusout', (e) => {
 
 
   function loadTasksFromLocalStorage(page) {
-    console.log(page)
+    // console.log(page)
     const savedTasks = localStorage.getItem('tasks');
     
     if (savedTasks) {
